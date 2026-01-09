@@ -2,14 +2,20 @@ import discord
 from discord import app_commands
 from discord.ui import Button, View
 import os
-import asyncio
+import sys
 
-print("🚀 Discord Bot 启动中...")
+# 检查 discord.py 版本
+print(f"🎯 Discord.py 版本: {discord.__version__}")
+
+if discord.__version__[0] != '2':
+    print("❌ 错误：需要 discord.py 2.x 版本，当前安装的是 1.x 版本")
+    print("💡 请确保 requirements.txt 中指定了 discord.py>=2.3.0")
+    sys.exit(1)
 
 # 创建 Bot 实例
 intents = discord.Intents.default()
 intents.message_content = True
-bot = discord.Bot(intents=intents)
+bot = discord.Bot(intents=intents)  # 这是第12行
 
 # 点击计数器
 click_data = {}
@@ -131,4 +137,5 @@ if __name__ == "__main__":
         print("💡 请在 Koyeb 的环境变量中设置正确的 Token")
     else:
         print("🔗 开始连接 Discord...")
+
         bot.run(token)
